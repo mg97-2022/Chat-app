@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
+import React, { ReactElement, ReactNode, useEffect } from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage/HomePage";
 import Messages from "./pages/HomePage/Messages/Messages";
 import SigninPage from "./pages/SigninPage/SigninPage";
@@ -9,23 +9,44 @@ import SignupPage from "./pages/SignupPage/SignupPage";
 import { auth } from "./firebase";
 import { onAuthStateChanged } from "firebase/auth";
 
-//
-import { useAppDispatch } from "./hooks/hooks";
+// redux
+import { useAppDispatch, useAppSelector } from "./hooks/hooks";
 import { userSliceActions } from "./store/user";
 
 function App() {
   const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.user.user);
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    const authenticated = onAuthStateChanged(auth, (user) => {
       console.log(user);
 
       dispatch(userSliceActions.userLogged(user));
     });
-  }, []);
+    return () => {
+      authenticated();
+    };
+  }, [dispatch]);
+
+  const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({
+    children,
+  }): any => {
+    if (!user) {
+      return <Navigate to="/signin" />;
+    }
+    return children;
+  };
 
   return (
     <Routes>
+      {/* <Route
+        path="/"
+        element={
+          <ProtectedRoute>
+            <HomePage />
+          </ProtectedRoute>
+        }
+      /> */}
       <Route path="/" element={<HomePage />} />
       {/* <Route path='/messages' element={<Messages />} /> */}
       <Route path="/signin" element={<SigninPage />} />

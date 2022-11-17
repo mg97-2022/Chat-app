@@ -4,7 +4,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const userSlice = createSlice({
   name: "user",
   initialState: {
-    user: {},
+    user: null,
+    isLoggedIn: false
   },
   reducers: {
     userLogged(state, action) {

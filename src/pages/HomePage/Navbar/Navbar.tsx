@@ -2,6 +2,8 @@ import React from "react";
 import img from "../../../assets/images/letschat.png";
 import Search from "./Search";
 import Chats from "./Chats";
+import { signOut } from "firebase/auth";
+import { auth } from "../../../firebase";
 
 const Navbar = () => {
   return (
@@ -11,7 +13,7 @@ const Navbar = () => {
         <div>
           <img src={img} alt="" />
           <span>mohamed</span>
-          <button>logout</button>
+          <button onClick={() => signOut(auth)}>logout</button>
         </div>
       </div>
       <Search />
