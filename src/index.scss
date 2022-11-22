@@ -6,15 +6,15 @@
       @content;
     }
   } @else if $point == small {
-    @media (min-width: 481px) and (max-width: 767px) {
+    @media (min-width: 481px) {
       @content;
     }
   } @else if $point == medium {
-    @media (min-width: 768px) and (max-width: 991px) {
+    @media (min-width: 768px) {
       @content;
     }
   } @else if $point == large {
-    @media (min-width: 992px) and (max-width: 1199px) {
+    @media (min-width: 992px) {
       @content;
     }
   } @else if $point == xlarge {
@@ -98,6 +98,20 @@ body {
   font-family: "Roboto", sans-serif;
 }
 // end global rules
+// start global components
+.google {
+  button {
+    display: block;
+    background-color: red;
+    color: white;
+    width: 100%;
+    height: 38px;
+    font-size: 16px;
+    padding: 10px 0;
+    margin: 0 auto;
+  }
+}
+// end global components
 // start signup and signin page
 .formContainer {
   @include centering(row, 0, center);
@@ -190,230 +204,444 @@ body {
   height: 100vh;
   @include centering(row, 0, center);
   .content {
+    position: relative;
     display: flex;
-    width: 70%;
-    height: 80vh;
+    width: 100%;
+    height: 100vh;
     max-height: 100vh;
-    border-radius: 1rem;
-    -webkit-border-radius: 1rem;
-    -moz-border-radius: 1rem;
-    -ms-border-radius: 1rem;
-    -o-border-radius: 1rem;
-    overflow: hidden;
-    @include breakpoints(mobile) {
-      width: 100%;
-      height: 100vh;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    -ms-border-radius: 0;
+    -o-border-radius: 0;
+    @include breakpoints(small) {
+      width: 90%;
+      height: 80vh;
       max-height: 100vh;
-      border-radius: 0;
-      -webkit-border-radius: 0;
-      -moz-border-radius: 0;
-      -ms-border-radius: 0;
-      -o-border-radius: 0;
+      border-radius: 1rem;
+      -webkit-border-radius: 1rem;
+      -moz-border-radius: 1rem;
+      -ms-border-radius: 1rem;
+      -o-border-radius: 1rem;
+      overflow: hidden;
     }
-  }
-  // .messages {
-  //   display: none;
-  //   @media (min-width: 481px) {
-  //     display: block;
-  //   }
-  // }
-}
-.navbar {
-  flex: 1;
-  .userInfo {
-    background-color: $vdark-color;
-    color: white;
-    @include centering(row, 0, space-between);
-    padding: 0 1rem;
-    height: 70px;
-
-    h2 {
-      font-size: 1.5rem;
-      text-transform: uppercase;
+    @include breakpoints(large) {
+      width: 70%;
     }
-    div {
-      @include centering(row, 1rem, center);
-
-      img {
-        @extend %img;
-      }
-      span {
-        font-size: 14px;
-      }
-      button {
-        background-color: #8da4f1;
-        color: white;
-        padding: 5px 8px;
-      }
-    }
-  }
-  .search {
-    input {
-      background-color: $dark-color;
-      color: white;
-      font-size: 14px;
+    .navbar {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
-      outline: none;
-      border: none;
-      padding: 1.5rem 1rem;
-      border-bottom: 1px solid gray;
-      &::placeholder {
-        color: $text-grey-color;
-        text-transform: capitalize;
+      height: 100%;
+      z-index: 1000;
+      transition: all 0.5s ease-in-out;
+      -webkit-transition: all 0.5s ease-in-out;
+      -moz-transition: all 0.5s ease-in-out;
+      -ms-transition: all 0.5s ease-in-out;
+      -o-transition: all 0.5s ease-in-out;
+      @include breakpoints(medium) {
+        position: relative;
+        flex: 1;
+        left: 0 !important;
       }
-    }
-  }
-  .chats {
-    height: 100%;
-    min-height: fit-content;
-    overflow-y: scroll;
-    background-color: #5d5b8d;
-    &::-webkit-scrollbar {
-      display: none;
-    }
-    .chat {
-      padding: 1rem;
-      @include centering(row, 15px, flex-start);
-      img {
-        @extend %img;
-      }
-      div {
-        span {
-          display: block;
-          color: white;
-        }
-        span:first-child {
-          margin-bottom: 0.5rem;
-          font-weight: 600;
-          font-size: 14px;
-        }
-        span:last-child {
-          font-size: 12px;
-        }
-      }
-      &:hover {
+      .userInfo {
         background-color: $vdark-color;
-      }
-    }
-  }
-}
-.messages {
-  flex: 2;
-  .top {
-    @include centering(row, 0, space-between);
-    padding: 0 1rem;
-    background-color: $dark-color;
-    height: 70px;
-    span {
-      color: white;
-      font-size: 12px;
-    }
-    img {
-      width: 2.5rem;
-    }
-  }
-  .userMessages {
-    overflow-y: scroll;
-    height: 100%;
-    &::-webkit-scrollbar {
-      display: none;
-    }
-    background-color: #ddddf7;
-    height: calc(100% - 140px);
-    padding: 1rem;
-    .user {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 15px;
-      .info {
+        color: white;
+        @include centering(row, 0, space-between);
+        padding: 0 1rem;
+        height: 70px;
         img {
           @extend %img;
         }
-        span {
-          display: block;
-          min-width: 40px;
-          color: $text-grey-color;
+        div {
+          @include centering(row, 1rem, center);
+          span {
+            font-size: 14px;
+          }
+          button {
+            background-color: #8da4f1;
+            color: white;
+            padding: 5px 8px;
+          }
         }
       }
-      .messagesContent {
-        width: fit-content;
-        max-width: 80%;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        p {
-          color: black;
-          width: fit-content;
-          background-color: white;
-          padding: 8px;
-          line-height: 1.5;
+      .search {
+        input {
+          background-color: $dark-color;
+          color: white;
           font-size: 14px;
-          border-radius: 0 10px 10px 10px;
-          -webkit-border-radius: 0 10px 10px 10px;
-          -moz-border-radius: 0 10px 10px 10px;
-          -ms-border-radius: 0 10px 10px 10px;
-          -o-border-radius: 0 10px 10px 10px;
+          width: 100%;
+          outline: none;
+          border: none;
+          padding: 1.5rem 1rem;
+          border-bottom: 1px solid gray;
+          &::placeholder {
+            color: $text-grey-color;
+            text-transform: capitalize;
+          }
+        }
+      }
+      .chats {
+        height: 100%;
+        min-height: fit-content;
+        overflow-y: scroll;
+        background-color: #5d5b8d;
+        &::-webkit-scrollbar {
+          display: none;
+        }
+        .chat {
+          padding: 1rem;
+          @include centering(row, 15px, flex-start);
+          img {
+            @extend %img;
+          }
+          div {
+            span {
+              display: block;
+              color: white;
+            }
+            span:first-child {
+              margin-bottom: 0.5rem;
+              font-weight: 600;
+              font-size: 14px;
+            }
+            span:last-child {
+              font-size: 12px;
+            }
+          }
+          &:hover {
+            background-color: $vdark-color;
+          }
+        }
+      }
+    }
+    .messages {
+      flex: 2;
+      .top {
+        @include centering(row, 0, space-between);
+        padding: 0 1rem;
+        background-color: $dark-color;
+        height: 70px;
+        .left {
+          color: white;
+          @include centering(row, 10px, space-between);
+          span {
+            color: white;
+            font-size: 12px;
+          }
+          svg {
+            @include breakpoints(medium) {
+              display: none;
+            }
+            cursor: pointer;
+            font-size: 20px;
+          }
         }
         img {
-          max-width: 50%;
-          object-fit: contain;
+          width: 2.5rem;
         }
       }
-      &.owner {
-        flex-direction: row-reverse;
-        justify-content: flex-start;
-        .messagesContent {
-          p {
-            margin-left: auto;
-            background-color: $secondary-color;
+      .userMessages {
+        overflow-y: scroll;
+        height: 100%;
+        &::-webkit-scrollbar {
+          display: none;
+        }
+        background-color: #ddddf7;
+        height: calc(100% - 140px);
+        padding: 1rem;
+        .user {
+          display: flex;
+          gap: 10px;
+          margin-bottom: 15px;
+          .info {
+            img {
+              @extend %img;
+            }
+            span {
+              display: block;
+              min-width: 40px;
+              color: $text-grey-color;
+            }
+          }
+          .messagesContent {
+            width: fit-content;
+            max-width: 80%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            p {
+              color: black;
+              width: fit-content;
+              background-color: white;
+              padding: 8px;
+              line-height: 1.5;
+              font-size: 14px;
+              border-radius: 0 10px 10px 10px;
+              -webkit-border-radius: 0 10px 10px 10px;
+              -moz-border-radius: 0 10px 10px 10px;
+              -ms-border-radius: 0 10px 10px 10px;
+              -o-border-radius: 0 10px 10px 10px;
+            }
+            img {
+              max-width: 50%;
+              object-fit: contain;
+            }
+          }
+          &.owner {
+            flex-direction: row-reverse;
+            justify-content: flex-start;
+            .messagesContent {
+              p {
+                margin-left: auto;
+                background-color: $secondary-color;
+                color: white;
+                border-radius: 10px 0 10px 10px;
+                -webkit-border-radius: 10px 0 10px 10px;
+                -moz-border-radius: 10px 0 10px 10px;
+                -ms-border-radius: 10px 0 10px 10px;
+                -o-border-radius: 10px 0 10px 10px;
+              }
+              img {
+                margin-left: auto;
+              }
+            }
+          }
+        }
+      }
+      .typing {
+        position: relative;
+        z-index: 100;
+        background-color: white;
+        height: 70px;
+        padding: 0 1rem;
+        @include centering(row, 0, space-between);
+        > input {
+          outline: none;
+          flex: 1;
+          border: none;
+          color: black;
+          font-size: 14px;
+          &::placeholder {
+            color: $text-grey-color;
+          }
+          caret-color: $main-color;
+        }
+        div {
+          @include centering(row, 10px, center);
+          input {
+            display: none;
+          }
+          label {
+            cursor: pointer;
+          }
+          button {
             color: white;
-            border-radius: 10px 0 10px 10px;
-            -webkit-border-radius: 10px 0 10px 10px;
-            -moz-border-radius: 10px 0 10px 10px;
-            -ms-border-radius: 10px 0 10px 10px;
-            -o-border-radius: 10px 0 10px 10px;
-          }
-          img {
-            margin-left: auto;
+            background-color: $main-color;
+            padding: 5px 8px;
           }
         }
-      }
-    }
-  }
-  .typing {
-    position: relative;
-    z-index: 100;
-    background-color: white;
-    height: 70px;
-    padding: 0 1rem;
-    @include centering(row, 0, space-between);
-    > input {
-      outline: none;
-      flex: 1;
-      border: none;
-      color: black;
-      font-size: 14px;
-      &::placeholder {
-        color: $text-grey-color;
-      }
-      caret-color: $main-color;
-    }
-    div {
-      @include centering(row, 10px, center);
-      input {
-        display: none;
-      }
-      label {
-        cursor: pointer;
-      }
-      button {
-        color: white;
-        background-color: $main-color;
-        padding: 5px 8px;
       }
     }
   }
 }
+// .navbar {
+//   flex: 1;
+//   .userInfo {
+//     background-color: $vdark-color;
+//     color: white;
+//     @include centering(row, 0, space-between);
+//     padding: 0 1rem;
+//     height: 70px;
+
+//     h2 {
+//       font-size: 1.5rem;
+//       text-transform: uppercase;
+//     }
+//     div {
+//       @include centering(row, 1rem, center);
+
+//       img {
+//         @extend %img;
+//       }
+//       span {
+//         font-size: 14px;
+//       }
+//       button {
+//         background-color: #8da4f1;
+//         color: white;
+//         padding: 5px 8px;
+//       }
+//     }
+//   }
+//   .search {
+//     input {
+//       background-color: $dark-color;
+//       color: white;
+//       font-size: 14px;
+//       width: 100%;
+//       outline: none;
+//       border: none;
+//       padding: 1.5rem 1rem;
+//       border-bottom: 1px solid gray;
+//       &::placeholder {
+//         color: $text-grey-color;
+//         text-transform: capitalize;
+//       }
+//     }
+//   }
+//   .chats {
+//     height: 100%;
+//     min-height: fit-content;
+//     overflow-y: scroll;
+//     background-color: #5d5b8d;
+//     &::-webkit-scrollbar {
+//       display: none;
+//     }
+//     .chat {
+//       padding: 1rem;
+//       @include centering(row, 15px, flex-start);
+//       img {
+//         @extend %img;
+//       }
+//       div {
+//         span {
+//           display: block;
+//           color: white;
+//         }
+//         span:first-child {
+//           margin-bottom: 0.5rem;
+//           font-weight: 600;
+//           font-size: 14px;
+//         }
+//         span:last-child {
+//           font-size: 12px;
+//         }
+//       }
+//       &:hover {
+//         background-color: $vdark-color;
+//       }
+//     }
+//   }
+// }
+// .messages {
+//   flex: 2;
+//   .top {
+//     @include centering(row, 0, space-between);
+//     padding: 0 1rem;
+//     background-color: $dark-color;
+//     height: 70px;
+//     span {
+//       color: white;
+//       font-size: 12px;
+//     }
+//     img {
+//       width: 2.5rem;
+//     }
+//   }
+//   .userMessages {
+//     overflow-y: scroll;
+//     height: 100%;
+//     &::-webkit-scrollbar {
+//       display: none;
+//     }
+//     background-color: #ddddf7;
+//     height: calc(100% - 140px);
+//     padding: 1rem;
+//     .user {
+//       display: flex;
+//       gap: 10px;
+//       margin-bottom: 15px;
+//       .info {
+//         img {
+//           @extend %img;
+//         }
+//         span {
+//           display: block;
+//           min-width: 40px;
+//           color: $text-grey-color;
+//         }
+//       }
+//       .messagesContent {
+//         width: fit-content;
+//         max-width: 80%;
+//         display: flex;
+//         flex-direction: column;
+//         gap: 10px;
+//         p {
+//           color: black;
+//           width: fit-content;
+//           background-color: white;
+//           padding: 8px;
+//           line-height: 1.5;
+//           font-size: 14px;
+//           border-radius: 0 10px 10px 10px;
+//           -webkit-border-radius: 0 10px 10px 10px;
+//           -moz-border-radius: 0 10px 10px 10px;
+//           -ms-border-radius: 0 10px 10px 10px;
+//           -o-border-radius: 0 10px 10px 10px;
+//         }
+//         img {
+//           max-width: 50%;
+//           object-fit: contain;
+//         }
+//       }
+//       &.owner {
+//         flex-direction: row-reverse;
+//         justify-content: flex-start;
+//         .messagesContent {
+//           p {
+//             margin-left: auto;
+//             background-color: $secondary-color;
+//             color: white;
+//             border-radius: 10px 0 10px 10px;
+//             -webkit-border-radius: 10px 0 10px 10px;
+//             -moz-border-radius: 10px 0 10px 10px;
+//             -ms-border-radius: 10px 0 10px 10px;
+//             -o-border-radius: 10px 0 10px 10px;
+//           }
+//           img {
+//             margin-left: auto;
+//           }
+//         }
+//       }
+//     }
+//   }
+//   .typing {
+//     position: relative;
+//     z-index: 100;
+//     background-color: white;
+//     height: 70px;
+//     padding: 0 1rem;
+//     @include centering(row, 0, space-between);
+//     > input {
+//       outline: none;
+//       flex: 1;
+//       border: none;
+//       color: black;
+//       font-size: 14px;
+//       &::placeholder {
+//         color: $text-grey-color;
+//       }
+//       caret-color: $main-color;
+//     }
+//     div {
+//       @include centering(row, 10px, center);
+//       input {
+//         display: none;
+//       }
+//       label {
+//         cursor: pointer;
+//       }
+//       button {
+//         color: white;
+//         background-color: $main-color;
+//         padding: 5px 8px;
+//       }
+//     }
+//   }
+// }
 
 // end home page
 

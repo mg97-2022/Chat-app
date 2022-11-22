@@ -4,14 +4,21 @@ import Search from "./Search";
 import Chats from "./Chats";
 import { signOut } from "firebase/auth";
 import { auth } from "../../../firebase";
+import { useAppSelector, useAppDispatch } from "../../../hooks/hooks";
+import { start } from "repl";
 
 const Navbar = () => {
+  const showUsersList = useAppSelector((state) => state.ui.showUsersList);
   return (
-    <div className="navbar">
+    <div
+      className="navbar"
+      style={{
+        left: showUsersList ? "0" : "-100%",
+      }}
+    >
       <div className="userInfo">
-        <h2>let's chat</h2>
+        <img src={img} alt="" />
         <div>
-          <img src={img} alt="" />
           <span>mohamed</span>
           <button onClick={() => signOut(auth)}>logout</button>
         </div>

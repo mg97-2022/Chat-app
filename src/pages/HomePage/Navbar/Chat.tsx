@@ -1,14 +1,16 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 // import img from "../../../assets/images/letschat.png";
+import { useAppSelector, useAppDispatch } from "../../../hooks/hooks";
+import { uiSliceActions } from "../../../store/ui";
 
 const Chat = () => {
-  const navigate = useNavigate();
-  const navToMessageHandler = () => {
-    navigate("/messages");
+  const dispatch = useAppDispatch()
+  const showMessagesHandler = () => {
+    dispatch(uiSliceActions.hideUsersList())
   };
   return (
-    <div className="chat" onClick={navToMessageHandler}>
+    <div className="chat" onClick={showMessagesHandler}>
       {/* <img src={img} alt="" /> */}
       <div >
         <span>mohamed</span>

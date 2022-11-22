@@ -64,6 +64,7 @@ const SignupPage = () => {
       );
       setIsLoading(false);
     } catch (error: any) {
+      console.log(error)
       setError(error.message);
     }
   };

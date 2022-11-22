@@ -20,7 +20,6 @@ function App() {
   useEffect(() => {
     const authenticated = onAuthStateChanged(auth, (user) => {
       console.log(user);
-
       dispatch(userSliceActions.userLogged(user));
     });
     return () => {
@@ -48,7 +47,6 @@ function App() {
         }
       /> */}
       <Route path="/" element={<HomePage />} />
-      {/* <Route path='/messages' element={<Messages />} /> */}
       <Route path="/signin" element={<SigninPage />} />
       <Route path="/signup" element={<SignupPage />} />
     </Routes>
