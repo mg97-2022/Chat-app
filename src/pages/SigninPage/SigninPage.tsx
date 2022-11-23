@@ -8,6 +8,8 @@ import { auth } from "../../firebase";
 import { provider } from "../../firebase";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import GoogleButton from "../../components/GoogleButton";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../../firebase";
 
 const SigninPage = () => {
   const [error, setError] = useState<string>();
@@ -36,7 +38,17 @@ const SigninPage = () => {
   const signinWithGoogle = async () => {
     try {
       setIsLoading(true);
-      await signInWithPopup(auth, provider);
+      const result = await signInWithPopup(auth, provider);
+
+      await setDoc(doc(db, "users", result.user.uid), {
+        uid: result.user.uid,
+        displayName: result.user.displayName,
+        email: result.user.email,
+        photoURL: result.user.photoURL,
+      });
+
+      await setDoc(doc(db, "userChats", result.user.uid), {});
+
       setIsLoading(false);
       navigate("/");
     } catch (error: any) {
@@ -50,8 +62,13 @@ const SigninPage = () => {
         <h2>let's chat</h2>
         <span>login</span>
         <form onSubmit={submitHandler}>
-          <input required type="email" placeholder="email" />
-          <input required type="password" placeholder="password" />
+          <input ref={enteredEmail} required type="email" placeholder="email" />
+          <input
+            ref={enteredPassword}
+            required
+            type="password"
+            placeholder="password"
+          />
           <button type="submit">Sign in</button>
         </form>
         <GoogleButton onClick={signinWithGoogle} />

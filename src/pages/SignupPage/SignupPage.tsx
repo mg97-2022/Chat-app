@@ -44,27 +44,28 @@ const SignupPage = () => {
         },
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-            // update user data located in firebase
+            // update user data (name and image) located in firebase
             await updateProfile(user.user, {
               displayName,
               photoURL: downloadURL,
             });
 
-            // Add a new document in collection "cities"
+            //make list of users
             await setDoc(doc(db, "users", user.user.uid), {
-              UserId: user.user.uid,
+              uid: user.user.uid,
               displayName,
               email,
               photoURL: downloadURL,
             });
-
+            // make a new chats for each user in database
+            await setDoc(doc(db, "userChats", user.user.uid), {});
             navigate("/");
           });
         }
       );
       setIsLoading(false);
     } catch (error: any) {
-      console.log(error)
+      console.log(error);
       setError(error.message);
     }
   };

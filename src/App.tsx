@@ -1,7 +1,6 @@
-import React, { ReactElement, ReactNode, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage/HomePage";
-import Messages from "./pages/HomePage/Messages/Messages";
 import SigninPage from "./pages/SigninPage/SigninPage";
 import SignupPage from "./pages/SignupPage/SignupPage";
 
@@ -19,7 +18,6 @@ function App() {
 
   useEffect(() => {
     const authenticated = onAuthStateChanged(auth, (user) => {
-      console.log(user);
       dispatch(userSliceActions.userLogged(user));
     });
     return () => {
@@ -38,15 +36,15 @@ function App() {
 
   return (
     <Routes>
-      {/* <Route
+      <Route
         path="/"
         element={
           <ProtectedRoute>
             <HomePage />
           </ProtectedRoute>
         }
-      /> */}
-      <Route path="/" element={<HomePage />} />
+      />
+      {/* <Route path="/" element={<HomePage />} /> */}
       <Route path="/signin" element={<SigninPage />} />
       <Route path="/signup" element={<SignupPage />} />
     </Routes>

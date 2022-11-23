@@ -215,7 +215,7 @@ body {
     -ms-border-radius: 0;
     -o-border-radius: 0;
     @include breakpoints(small) {
-      width: 90%;
+      width: 80%;
       height: 80vh;
       max-height: 100vh;
       border-radius: 1rem;
@@ -226,7 +226,7 @@ body {
       overflow: hidden;
     }
     @include breakpoints(large) {
-      width: 70%;
+      width: 60%;
     }
     .navbar {
       position: absolute;
@@ -244,6 +244,7 @@ body {
         position: relative;
         flex: 1;
         left: 0 !important;
+        min-width: 300px;
       }
       .userInfo {
         background-color: $vdark-color;
@@ -255,7 +256,7 @@ body {
           @extend %img;
         }
         div {
-          @include centering(row, 1rem, center);
+          @include centering(row, .5rem, center);
           span {
             font-size: 14px;
           }
@@ -325,10 +326,13 @@ body {
         height: 70px;
         .left {
           color: white;
-          @include centering(row, 10px, space-between);
+          @include centering(row, .5rem, space-between);
           span {
             color: white;
             font-size: 12px;
+          }
+          img {
+            @extend %img
           }
           svg {
             @include breakpoints(medium) {
@@ -446,202 +450,6 @@ body {
     }
   }
 }
-// .navbar {
-//   flex: 1;
-//   .userInfo {
-//     background-color: $vdark-color;
-//     color: white;
-//     @include centering(row, 0, space-between);
-//     padding: 0 1rem;
-//     height: 70px;
-
-//     h2 {
-//       font-size: 1.5rem;
-//       text-transform: uppercase;
-//     }
-//     div {
-//       @include centering(row, 1rem, center);
-
-//       img {
-//         @extend %img;
-//       }
-//       span {
-//         font-size: 14px;
-//       }
-//       button {
-//         background-color: #8da4f1;
-//         color: white;
-//         padding: 5px 8px;
-//       }
-//     }
-//   }
-//   .search {
-//     input {
-//       background-color: $dark-color;
-//       color: white;
-//       font-size: 14px;
-//       width: 100%;
-//       outline: none;
-//       border: none;
-//       padding: 1.5rem 1rem;
-//       border-bottom: 1px solid gray;
-//       &::placeholder {
-//         color: $text-grey-color;
-//         text-transform: capitalize;
-//       }
-//     }
-//   }
-//   .chats {
-//     height: 100%;
-//     min-height: fit-content;
-//     overflow-y: scroll;
-//     background-color: #5d5b8d;
-//     &::-webkit-scrollbar {
-//       display: none;
-//     }
-//     .chat {
-//       padding: 1rem;
-//       @include centering(row, 15px, flex-start);
-//       img {
-//         @extend %img;
-//       }
-//       div {
-//         span {
-//           display: block;
-//           color: white;
-//         }
-//         span:first-child {
-//           margin-bottom: 0.5rem;
-//           font-weight: 600;
-//           font-size: 14px;
-//         }
-//         span:last-child {
-//           font-size: 12px;
-//         }
-//       }
-//       &:hover {
-//         background-color: $vdark-color;
-//       }
-//     }
-//   }
-// }
-// .messages {
-//   flex: 2;
-//   .top {
-//     @include centering(row, 0, space-between);
-//     padding: 0 1rem;
-//     background-color: $dark-color;
-//     height: 70px;
-//     span {
-//       color: white;
-//       font-size: 12px;
-//     }
-//     img {
-//       width: 2.5rem;
-//     }
-//   }
-//   .userMessages {
-//     overflow-y: scroll;
-//     height: 100%;
-//     &::-webkit-scrollbar {
-//       display: none;
-//     }
-//     background-color: #ddddf7;
-//     height: calc(100% - 140px);
-//     padding: 1rem;
-//     .user {
-//       display: flex;
-//       gap: 10px;
-//       margin-bottom: 15px;
-//       .info {
-//         img {
-//           @extend %img;
-//         }
-//         span {
-//           display: block;
-//           min-width: 40px;
-//           color: $text-grey-color;
-//         }
-//       }
-//       .messagesContent {
-//         width: fit-content;
-//         max-width: 80%;
-//         display: flex;
-//         flex-direction: column;
-//         gap: 10px;
-//         p {
-//           color: black;
-//           width: fit-content;
-//           background-color: white;
-//           padding: 8px;
-//           line-height: 1.5;
-//           font-size: 14px;
-//           border-radius: 0 10px 10px 10px;
-//           -webkit-border-radius: 0 10px 10px 10px;
-//           -moz-border-radius: 0 10px 10px 10px;
-//           -ms-border-radius: 0 10px 10px 10px;
-//           -o-border-radius: 0 10px 10px 10px;
-//         }
-//         img {
-//           max-width: 50%;
-//           object-fit: contain;
-//         }
-//       }
-//       &.owner {
-//         flex-direction: row-reverse;
-//         justify-content: flex-start;
-//         .messagesContent {
-//           p {
-//             margin-left: auto;
-//             background-color: $secondary-color;
-//             color: white;
-//             border-radius: 10px 0 10px 10px;
-//             -webkit-border-radius: 10px 0 10px 10px;
-//             -moz-border-radius: 10px 0 10px 10px;
-//             -ms-border-radius: 10px 0 10px 10px;
-//             -o-border-radius: 10px 0 10px 10px;
-//           }
-//           img {
-//             margin-left: auto;
-//           }
-//         }
-//       }
-//     }
-//   }
-//   .typing {
-//     position: relative;
-//     z-index: 100;
-//     background-color: white;
-//     height: 70px;
-//     padding: 0 1rem;
-//     @include centering(row, 0, space-between);
-//     > input {
-//       outline: none;
-//       flex: 1;
-//       border: none;
-//       color: black;
-//       font-size: 14px;
-//       &::placeholder {
-//         color: $text-grey-color;
-//       }
-//       caret-color: $main-color;
-//     }
-//     div {
-//       @include centering(row, 10px, center);
-//       input {
-//         display: none;
-//       }
-//       label {
-//         cursor: pointer;
-//       }
-//       button {
-//         color: white;
-//         background-color: $main-color;
-//         padding: 5px 8px;
-//       }
-//     }
-//   }
-// }
 
 // end home page
 

@@ -1,6 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 // import type { RootState } from "./store";
 
+type initial = {
+  user: any;
+  isLoggedIn: boolean
+}
+
 const userSlice = createSlice({
   name: "user",
   initialState: {

@@ -1,20 +1,13 @@
 import React from "react";
 import Chat from "./Chat";
-import { useAppSelector, useAppDispatch } from "../../../hooks/hooks";
 
-const Chats = () => {
-  const user = useAppSelector((state) => state.user.user);
+const Chats: React.FC<{ friends: any }> = ({ friends }) => {
 
-  // const userLogged = useSelector(state: RootState => state.user.user)
   return (
     <div className="chats">
-      <Chat />
-      <Chat />
-      <Chat />
-      <Chat />
-      <Chat />
-      <Chat />
-      <Chat />
+      {!friends.displayName && <p>Found no users</p>}
+      {friends.displayName && <Chat friend={friends} />}
+      
     </div>
   );
 };
