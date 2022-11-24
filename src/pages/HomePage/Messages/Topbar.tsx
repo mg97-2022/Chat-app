@@ -1,10 +1,7 @@
-import React from "react";
 import cam from "../../../assets/images/cam.png";
 import add from "../../../assets/images/add.png";
 import more from "../../../assets/images/more.png";
-import img from '../../../assets/images/letschat.png'
 import { HiArrowNarrowLeft } from "react-icons/hi";
-import { GoThreeBars } from "react-icons/go";
 import { useAppSelector, useAppDispatch } from "../../../hooks/hooks";
 import { uiSliceActions } from "../../../store/ui";
 
@@ -23,9 +20,8 @@ const Topbar = () => {
         <HiArrowNarrowLeft
           onClick={() => dispatch(uiSliceActions.showUsersList())}
         />
-        <img src={img} alt="" />
-        {/* <span>{handleName(user.displayName)}</span> */}
-        <span>mohamed</span>
+        <img src={user.photoURL} alt="" />
+        <span>{handleName(user.displayName)}</span>
       </div>
       <div>
         <img src={cam} alt="" />

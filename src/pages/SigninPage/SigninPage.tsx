@@ -1,18 +1,14 @@
 import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import GoogleAuth from "../../components/GoogleAuth";
 
 // firebase
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
-import { provider } from "../../firebase";
-import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import GoogleButton from "../../components/GoogleButton";
-import { doc, setDoc } from "firebase/firestore";
-import { db } from "../../firebase";
 
 const SigninPage = () => {
-  const [error, setError] = useState<string>();
+  const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const enteredEmail = useRef<HTMLInputElement>(null);
   const enteredPassword = useRef<HTMLInputElement>(null);
@@ -21,39 +17,26 @@ const SigninPage = () => {
 
   const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError(false);
+    setIsLoading(true);
 
     const email = enteredEmail.current!.value;
     const password = enteredPassword.current!.value;
 
     try {
-      setIsLoading(true);
       const user = await signInWithEmailAndPassword(auth, email, password);
       setIsLoading(false);
       navigate("/");
     } catch (error: any) {
-      setError(error.message);
+      setError(true);
     }
   };
 
-  const signinWithGoogle = async () => {
-    try {
-      setIsLoading(true);
-      const result = await signInWithPopup(auth, provider);
-
-      await setDoc(doc(db, "users", result.user.uid), {
-        uid: result.user.uid,
-        displayName: result.user.displayName,
-        email: result.user.email,
-        photoURL: result.user.photoURL,
-      });
-
-      await setDoc(doc(db, "userChats", result.user.uid), {});
-
-      setIsLoading(false);
-      navigate("/");
-    } catch (error: any) {
-      setError(error.message);
-    }
+  const googleErrorHandler = (err) => {
+    setError(err);
+  };
+  const googleLoadingHandler = (load) => {
+    setIsLoading(load);
   };
 
   return (
@@ -71,7 +54,10 @@ const SigninPage = () => {
           />
           <button type="submit">Sign in</button>
         </form>
-        <GoogleButton onClick={signinWithGoogle} />
+        <GoogleAuth
+          onError={googleErrorHandler}
+          onLoading={googleLoadingHandler}
+        />
         <p>
           You don't have an account? <Link to="/signup">Register</Link>
         </p>

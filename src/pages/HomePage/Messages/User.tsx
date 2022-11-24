@@ -4,7 +4,7 @@ import img from "../../../assets/images/letschat.png";
 const User = () => {
   return (
     <>
-    <div className="user ">
+    <div className="user">
       <div className="info">
         <img src={img} alt="" />
         <span>just now</span>

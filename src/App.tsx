@@ -4,6 +4,10 @@ import HomePage from "./pages/HomePage/HomePage";
 import SigninPage from "./pages/SigninPage/SigninPage";
 import SignupPage from "./pages/SignupPage/SignupPage";
 
+// const HomePage = React.lazy(() =>
+//   import("./pages/HomePage/HomePage").then((m) => ({ default: m.HomePage }))
+// );
+
 // firebase
 import { auth } from "./firebase";
 import { onAuthStateChanged } from "firebase/auth";

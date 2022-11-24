@@ -1,20 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 // import type { RootState } from "./store";
 
-type initial = {
-  user: any;
-  isLoggedIn: boolean
-}
-
 const userSlice = createSlice({
   name: "user",
   initialState: {
     user: null,
-    isLoggedIn: false
+    isLoggedIn: false,
+    SearchFriend: null,
   },
   reducers: {
     userLogged(state, action) {
       state.user = action.payload;
+    },
+    setSearchFriend(state, action) {
+      state.SearchFriend = action.payload;
     },
   },
 });

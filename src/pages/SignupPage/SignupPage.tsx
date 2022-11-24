@@ -7,6 +7,7 @@ import { auth, storage } from "../../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../../firebase";
+import GoogleAuth from "../../components/GoogleAuth";
 
 const SignupPage = () => {
   const [error, setError] = useState<string>();
@@ -70,6 +71,13 @@ const SignupPage = () => {
     }
   };
 
+  const googleErrorHandler = (err) => {
+    setError(err)
+  }
+  const googleLoadingHandler = (load) => {
+    setIsLoading(load)
+  }
+
   return (
     <div className="formContainer">
       <div className="content">
@@ -92,6 +100,7 @@ const SignupPage = () => {
           <button type="submit">Sign up</button>
           {isLoading && <p>loading</p>}
         </form>
+        <GoogleAuth onError={googleErrorHandler} onLoading={googleLoadingHandler} />
         <p>
           You don't have an account? <Link to="/signin">Login</Link>
         </p>
