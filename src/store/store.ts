@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./user";
 import uiReducer from "./ui";
+import chatReducer from "./chat";
 // import {
 //   getFirebase,
 //   actionTypes as rrfActionTypes,
@@ -11,6 +12,7 @@ const store = configureStore({
   reducer: {
     user: userReducer,
     ui: uiReducer,
+    chat: chatReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

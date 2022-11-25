@@ -9,14 +9,14 @@ import { start } from "repl";
 import { handleName } from "../Messages/Topbar";
 
 const Navbar = () => {
-  const showUsersList = useAppSelector((state) => state.ui.showUsersList);
+  const hideUsersList = useAppSelector((state) => state.ui.hideUsersList);
   const user = useAppSelector((state) => state.user.user);
 
   return (
     <div
       className="navbar"
       style={{
-        left: showUsersList ? "0" : "-100%",
+        left: hideUsersList ? "-100%" : "0",
       }}
     >
       <div className="userInfo">

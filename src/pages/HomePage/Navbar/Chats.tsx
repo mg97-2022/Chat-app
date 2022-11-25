@@ -12,7 +12,7 @@ const Chats = () => {
   const user = useAppSelector((state) => state.user.user);
   const SearchFriend = useAppSelector((state) => state.user.SearchFriend);
 
-  // update chats when any change happens in database in userChats node
+  // update chats list when any change happens in database in userChats node
   useEffect(() => {
     const updateFriends = () => {
       onSnapshot(doc(db, "userChats", user.uid), (doc) => {
@@ -28,10 +28,13 @@ const Chats = () => {
   return (
     <div className="chats">
       <>
-        {/* {users.length === 0 && <p>Found no users</p>} */}
         {SearchFriend !== null && <SearchResult />}
         {users.length !== 0 &&
-          users.map((friend) => <Chat key={friend[0]} friend={friend[1]} />)}
+          users
+            .sort((a, b) => b[1].date - a[1].date)
+            .map((friend) => {
+              return <Chat key={friend[0]} friend={friend[1]} />;
+            })}
       </>
     </div>
   );

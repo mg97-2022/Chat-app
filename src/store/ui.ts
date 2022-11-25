@@ -3,14 +3,14 @@ import { createSlice } from "@reduxjs/toolkit";
 const uiSlice = createSlice({
   name: "ui",
   initialState: {
-    showUsersList: false,
+    hideUsersList: false,
   },
   reducers: {
-    showUsersList(state) {
-      state.showUsersList = true;
+    showList(state) {
+      state.hideUsersList = false;
     },
-    hideUsersList(state) {
-      state.showUsersList = false;
+    hideList(state) {
+      state.hideUsersList = true;
     },
   },
 });

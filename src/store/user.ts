@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import type { RootState } from "./store";
 
 const userSlice = createSlice({
   name: "user",
@@ -17,7 +16,6 @@ const userSlice = createSlice({
     },
   },
 });
-// export const selectCount = (state: RootState) => state.counter.value
 
 export const userSliceActions = userSlice.actions;
 export default userSlice.reducer;

@@ -48,7 +48,6 @@ function App() {
           </ProtectedRoute>
         }
       />
-      {/* <Route path="/" element={<HomePage />} /> */}
       <Route path="/signin" element={<SigninPage />} />
       <Route path="/signup" element={<SignupPage />} />
     </Routes>

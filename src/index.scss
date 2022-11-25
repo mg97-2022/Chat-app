@@ -43,9 +43,41 @@
   -o-border-radius: 50%;
   object-fit: cover;
 }
+%border-radius {
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+%btn {
+  @extend %border-radius;
+  color: white;
+}
+%signBtn {
+  @extend %btn;
+  display: block;
+  width: 100%;
+  height: 38px;
+  font-size: 16px;
+  padding: 10px 0;
+  margin: 15px auto;
+}
 // end placeholders
 
 // start global variables
+$d-black: #040404;
+$black: #2a2d34;
+$l-black: #1e2126;
+$grey: #ababab;
+$l-green: #04e263;
+$green: #08a143;
+$d-green: #0b622d;
+// $d-black-2: #212020;
+// $l-green-2: #04dd65;
+// $green-2: #29c27e;
+// $d-green-2: #25703f;
+//
 $light-color: #a7bcff;
 $dark-color: #5d5b8d;
 $vdark-color: #2f2d52;
@@ -63,12 +95,8 @@ $border-color: gray;
 }
 html {
   font-size: 10px;
+  overflow-y: hidden;
 }
-// html {
-//   @include breakpoints(small) {
-//     font-size: 10px;
-//   }
-// }
 html {
   @include breakpoints(medium) {
     font-size: 12px;
@@ -97,18 +125,14 @@ input::placeholder {
 body {
   font-family: "Roboto", sans-serif;
 }
+
 // end global rules
 // start global components
 .google {
   button {
-    display: block;
+    @extend %signBtn;
     background-color: red;
-    color: white;
-    width: 100%;
-    height: 38px;
-    font-size: 16px;
-    padding: 10px 0;
-    margin: 0 auto;
+    margin-top: 5px;
   }
 }
 // end global components
@@ -116,7 +140,7 @@ body {
 .formContainer {
   @include centering(row, 0, center);
   height: 100vh;
-  background-color: $light-color;
+  background-color: $l-green;
   .content {
     border-radius: 1rem;
     -webkit-border-radius: 1rem;
@@ -133,13 +157,13 @@ body {
     h2 {
       font-size: 2.25rem;
       font-weight: bold;
-      color: $dark-color;
+      color: $d-green;
       text-transform: uppercase;
       margin-bottom: 10px;
     }
     > span {
       text-transform: capitalize;
-      color: $dark-color;
+      color: $green;
       font-weight: 500;
       font-size: 1.5rem;
       margin-bottom: 1rem;
@@ -148,16 +172,16 @@ body {
     form {
       @include centering(column, 15px, center);
       input {
-        color: $main-color;
+        color: $black;
         font-size: 14px;
         width: 100%;
         outline: none;
         border: none;
         margin-bottom: 0.5rem;
         padding: 1rem;
-        border-bottom: 1px solid $light-color;
+        border-bottom: 1px solid $l-green;
         &::placeholder {
-          color: $text-grey-color;
+          color: $grey;
           text-transform: capitalize;
         }
       }
@@ -172,26 +196,21 @@ body {
           width: 4rem;
         }
         span {
-          color: $secondary-color;
+          color: $green;
           font-size: 14px;
         }
       }
       button {
-        font-size: 16px;
-        display: block;
-        padding: 10px 0;
-        background-color: $main-color;
-        color: white;
-        width: 100%;
-        margin: 1rem;
+        @extend %signBtn;
+        background-color: $green;
       }
     }
     p {
       font-size: 14px;
       margin-top: 1rem;
-      color: $text-grey-color;
+      color: $grey;
       a {
-        color: $dark-color;
+        color: $green;
       }
     }
   }
@@ -200,7 +219,7 @@ body {
 
 // start home page
 .homePage {
-  background-color: $light-color;
+  background-color: $l-green;
   height: 100vh;
   @include centering(row, 0, center);
   .content {
@@ -247,7 +266,7 @@ body {
         min-width: 300px;
       }
       .userInfo {
-        background-color: $vdark-color;
+        background-color: $d-black;
         color: white;
         @include centering(row, 0, space-between);
         padding: 0 1rem;
@@ -256,12 +275,13 @@ body {
           @extend %img;
         }
         div {
-          @include centering(row, .5rem, center);
+          @include centering(row, 0.5rem, center);
           span {
             font-size: 14px;
           }
           button {
-            background-color: #8da4f1;
+            @extend %btn;
+            background-color: $l-green;
             color: white;
             padding: 5px 8px;
           }
@@ -269,16 +289,16 @@ body {
       }
       .search {
         input {
-          background-color: $dark-color;
+          background-color: $black;
           color: white;
           font-size: 14px;
           width: 100%;
           outline: none;
           border: none;
           padding: 1.5rem 1rem;
-          border-bottom: 1px solid gray;
+          border-bottom: 1px solid $grey;
           &::placeholder {
-            color: $text-grey-color;
+            color: $grey;
             text-transform: capitalize;
           }
         }
@@ -287,13 +307,16 @@ body {
         height: 100%;
         min-height: fit-content;
         overflow-y: scroll;
-        background-color: #5d5b8d;
+        background-color: $black;
         &::-webkit-scrollbar {
           display: none;
         }
         .chat {
           padding: 1rem;
           @include centering(row, 15px, flex-start);
+          &:not(:last-child) {
+            border-bottom: 1px solid $grey;
+          }
           img {
             @extend %img;
           }
@@ -312,27 +335,32 @@ body {
             }
           }
           &:hover {
-            background-color: $vdark-color;
+            background-color: $d-black;
           }
         }
       }
     }
     .messages {
       flex: 2;
+      // position: relative;
       .top {
         @include centering(row, 0, space-between);
+        // position: sticky;
+        // width: 100%;
+        // top: 0;
+        // right: 0;
         padding: 0 1rem;
-        background-color: $dark-color;
+        background-color: $black;
         height: 70px;
         .left {
           color: white;
-          @include centering(row, .5rem, space-between);
+          @include centering(row, 0.5rem, space-between);
           span {
             color: white;
             font-size: 12px;
           }
           img {
-            @extend %img
+            @extend %img;
           }
           svg {
             @include breakpoints(medium) {
@@ -352,10 +380,10 @@ body {
         &::-webkit-scrollbar {
           display: none;
         }
-        background-color: #ddddf7;
+        background-color: $l-black;
         height: calc(100% - 140px);
         padding: 1rem;
-        .user {
+        .message {
           display: flex;
           gap: 10px;
           margin-bottom: 15px;
@@ -366,7 +394,7 @@ body {
             span {
               display: block;
               min-width: 40px;
-              color: $text-grey-color;
+              color: $l-green;
             }
           }
           .messagesContent {
@@ -376,6 +404,7 @@ body {
             flex-direction: column;
             gap: 10px;
             p {
+              position: relative;
               color: black;
               width: fit-content;
               background-color: white;
@@ -387,6 +416,12 @@ body {
               -moz-border-radius: 0 10px 10px 10px;
               -ms-border-radius: 0 10px 10px 10px;
               -o-border-radius: 0 10px 10px 10px;
+              span {
+                display: inline-block;
+                font-size: 10px;
+                position: relative;
+                top: 8px;
+              }
             }
             img {
               max-width: 50%;
@@ -399,7 +434,7 @@ body {
             .messagesContent {
               p {
                 margin-left: auto;
-                background-color: $secondary-color;
+                background-color: $l-green;
                 color: white;
                 border-radius: 10px 0 10px 10px;
                 -webkit-border-radius: 10px 0 10px 10px;
@@ -415,22 +450,28 @@ body {
         }
       }
       .typing {
-        position: relative;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 100%;
         z-index: 100;
-        background-color: white;
+        background-color: $d-black;
         height: 70px;
+        max-height: 70px;
         padding: 0 1rem;
         @include centering(row, 0, space-between);
         > input {
+          background-color: $d-black;
           outline: none;
           flex: 1;
+          height: 100%;
           border: none;
-          color: black;
-          font-size: 14px;
+          color: white;
+          font-size: 16px;
           &::placeholder {
-            color: $text-grey-color;
+            color: $grey;
           }
-          caret-color: $main-color;
+          caret-color: $green;
         }
         div {
           @include centering(row, 10px, center);
@@ -441,8 +482,9 @@ body {
             cursor: pointer;
           }
           button {
+            @extend %btn;
             color: white;
-            background-color: $main-color;
+            background-color: $l-green;
             padding: 5px 8px;
           }
         }

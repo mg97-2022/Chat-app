@@ -1,16 +1,16 @@
 import React, { FormEvent, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import img from "../../assets/images/addAvatar.png";
-// firebase
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth, storage } from "../../firebase";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { doc, setDoc } from "firebase/firestore";
-import { db } from "../../firebase";
 import GoogleAuth from "../../components/GoogleAuth";
 
+// firebase
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth, storage, db } from "../../firebase";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { doc, setDoc } from "firebase/firestore";
+
 const SignupPage = () => {
-  const [error, setError] = useState<string>();
+  const [error, setError] = useState<boolean>();
   const [isLoading, setIsLoading] = useState(false);
   const enteredName = useRef<HTMLInputElement>(null);
   const enteredEmail = useRef<HTMLInputElement>(null);
@@ -66,15 +66,14 @@ const SignupPage = () => {
       );
       setIsLoading(false);
     } catch (error: any) {
-      console.log(error);
       setError(error.message);
     }
   };
 
-  const googleErrorHandler = (err) => {
+  const googleErrorHandler = (err: boolean) => {
     setError(err)
   }
-  const googleLoadingHandler = (load) => {
+  const googleLoadingHandler = (load: boolean) => {
     setIsLoading(load)
   }
 
