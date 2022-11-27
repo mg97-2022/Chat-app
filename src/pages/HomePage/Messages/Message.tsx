@@ -1,5 +1,4 @@
 import React, { useRef, useEffect } from "react";
-import img from "../../../assets/images/letschat.png";
 import { useAppSelector } from "../../../hooks/hooks";
 import { messageProp } from "./UserMessages";
 
@@ -7,7 +6,7 @@ type props = {
   message: messageProp;
 };
 
-function toDateTime(secs) {
+function toDateTime(secs: number) {
   var t = new Date(1970, 0, 1); // Epoch
   t.setTime(secs * 1000);
   return {
@@ -22,11 +21,11 @@ function toDateTime(secs) {
 const Message = ({ message }: props) => {
   const user = useAppSelector((state) => state.user.user);
   const friend = useAppSelector((state) => state.chat.friend);
-  const lastMessage = useRef<HTMLDivElement>();
+  // const lastMessage = useRef<HTMLDivElement>();
 
-  useEffect(() => {
-    // lastMessage.current.scrollIntoView({ behavior: "smooth" });
-  }, [message]);
+  // useEffect(() => {
+  //   lastMessage.currentTarget.scrollIntoView({ behavior: "smooth" });
+  // }, [message]);
 
   let hour = toDateTime(message.date.seconds).hour;
   if (hour > 12) {
@@ -38,12 +37,12 @@ const Message = ({ message }: props) => {
   }
   return (
     <div
-      ref={lastMessage}
-      className={`message ${message.senderId === user.uid ? "owner" : ""}`}
+      // ref={lastMessage}
+      className={`message ${message.senderId === user!.uid ? "owner" : ""}`}
     >
       <div className="info">
         <img
-          src={message.senderId === user.uid ? user.photoURL : friend.photoURL}
+          src={message.senderId === user?.uid ? user.photoURL : friend.photoURL}
           alt=""
         />
       </div>

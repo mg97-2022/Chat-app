@@ -1,11 +1,9 @@
-import React, { useState } from "react";
-import img from "../../../assets/images/letschat.png";
+import img from "../../../assets/images/logowbg.png";
 import Search from "./Search";
 import Chats from "./Chats";
 import { signOut } from "firebase/auth";
 import { auth } from "../../../firebase";
-import { useAppSelector, useAppDispatch } from "../../../hooks/hooks";
-import { start } from "repl";
+import { useAppSelector } from "../../../hooks/hooks";
 import { handleName } from "../Messages/Topbar";
 
 const Navbar = () => {

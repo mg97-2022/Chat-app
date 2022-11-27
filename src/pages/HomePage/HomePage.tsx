@@ -1,4 +1,3 @@
-import React from "react";
 import { useAppSelector } from "../../hooks/hooks";
 import Messages from "./Messages/Messages";
 import Navbar from "./Navbar/Navbar";

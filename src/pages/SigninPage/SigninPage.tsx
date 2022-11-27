@@ -6,9 +6,10 @@ import GoogleAuth from "../../components/GoogleAuth";
 // firebase
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
+import ErrorHandling from "../../components/ErrorHandling";
 
 const SigninPage = () => {
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState(false);
   const enteredEmail = useRef<HTMLInputElement>(null);
   const enteredPassword = useRef<HTMLInputElement>(null);
@@ -24,18 +25,18 @@ const SigninPage = () => {
     const password = enteredPassword.current!.value;
 
     try {
-      const user = await signInWithEmailAndPassword(auth, email, password);
-      setIsLoading(false);
+      await signInWithEmailAndPassword(auth, email, password);
       navigate("/");
     } catch (error: any) {
       setError(true);
     }
+    setIsLoading(false);
   };
 
-  const googleErrorHandler = (err) => {
+  const googleErrorHandler = (err: boolean) => {
     setError(err);
   };
-  const googleLoadingHandler = (load) => {
+  const googleLoadingHandler = (load: boolean) => {
     setIsLoading(load);
   };
 
@@ -58,6 +59,7 @@ const SigninPage = () => {
           onError={googleErrorHandler}
           onLoading={googleLoadingHandler}
         />
+        <ErrorHandling isLoading={isLoading} error={error} />
         <p>
           You don't have an account? <Link to="/signup">Register</Link>
         </p>

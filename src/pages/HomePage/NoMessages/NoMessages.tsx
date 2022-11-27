@@ -1,13 +1,14 @@
-import React from 'react'
-import TopNavbar from './TopNavbar'
+import img from "../../../assets/images/logowbg.png";
 
 const NoMessages = () => {
   return (
-    <div className='messages'>
-      <TopNavbar />
-      <div className='userMessages'></div>
+    <div className="noMessages">
+      <div>
+        <img src={img} alt="logo" />
+        <span>let's chat</span>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default NoMessages
+export default NoMessages;

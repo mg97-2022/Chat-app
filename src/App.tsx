@@ -1,12 +1,6 @@
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import HomePage from "./pages/HomePage/HomePage";
-import SigninPage from "./pages/SigninPage/SigninPage";
-import SignupPage from "./pages/SignupPage/SignupPage";
-
-// const HomePage = React.lazy(() =>
-//   import("./pages/HomePage/HomePage").then((m) => ({ default: m.HomePage }))
-// );
+import LoadingPage from "./pages/LoadingPage/LoadingPage";
 
 // firebase
 import { auth } from "./firebase";
@@ -15,6 +9,22 @@ import { onAuthStateChanged } from "firebase/auth";
 // redux
 import { useAppDispatch, useAppSelector } from "./hooks/hooks";
 import { userSliceActions } from "./store/user";
+
+const HomePage = React.lazy(() =>
+  import("./pages/HomePage/HomePage").then(({ default: HomePage }) => ({
+    default: HomePage,
+  }))
+);
+const SigninPage = React.lazy(() =>
+  import("./pages/SigninPage/SigninPage").then(({ default: SigninPage }) => ({
+    default: SigninPage,
+  }))
+);
+const SignupPage = React.lazy(() =>
+  import("./pages/SignupPage/SignupPage").then(({ default: SignupPage }) => ({
+    default: SignupPage,
+  }))
+);
 
 function App() {
   const dispatch = useAppDispatch();
@@ -29,9 +39,7 @@ function App() {
     };
   }, [dispatch]);
 
-  const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({
-    children,
-  }): any => {
+  const ProtectedRoute = ({ children }: { children: React.ReactNode }): any => {
     if (!user) {
       return <Navigate to="/signin" />;
     }
@@ -39,18 +47,20 @@ function App() {
   };
 
   return (
-    <Routes>
-      <Route
-        path="/"
-        element={
-          <ProtectedRoute>
-            <HomePage />
-          </ProtectedRoute>
-        }
-      />
-      <Route path="/signin" element={<SigninPage />} />
-      <Route path="/signup" element={<SignupPage />} />
-    </Routes>
+    <Suspense fallback={<LoadingPage />}>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <HomePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/signin" element={<SigninPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+      </Routes>
+    </Suspense>
   );
 }
 

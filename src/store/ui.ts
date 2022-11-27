@@ -14,7 +14,6 @@ const uiSlice = createSlice({
     },
   },
 });
-// export const selectCount = (state: RootState) => state.counter.value
 
 export const uiSliceActions = uiSlice.actions;
 export default uiSlice.reducer;

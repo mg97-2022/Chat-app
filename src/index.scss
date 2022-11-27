@@ -73,18 +73,6 @@ $grey: #ababab;
 $l-green: #04e263;
 $green: #08a143;
 $d-green: #0b622d;
-// $d-black-2: #212020;
-// $l-green-2: #04dd65;
-// $green-2: #29c27e;
-// $d-green-2: #25703f;
-//
-$light-color: #a7bcff;
-$dark-color: #5d5b8d;
-$vdark-color: #2f2d52;
-$main-color: #7b96ec;
-$secondary-color: #8da4f1;
-$text-grey-color: rgb(175, 175, 175);
-$border-color: gray;
 // end global variables
 
 // start global rules
@@ -120,7 +108,7 @@ button {
   border: none;
 }
 input::placeholder {
-  color: $main-color;
+  color: $grey;
 }
 body {
   font-family: "Roboto", sans-serif;
@@ -149,7 +137,7 @@ body {
     -o-border-radius: 1rem;
     padding: 3rem 3rem;
     text-align: center;
-    background-color: white;
+    background-color: $black;
     width: 30rem;
     @include breakpoints(mobile) {
       width: 90%;
@@ -172,7 +160,8 @@ body {
     form {
       @include centering(column, 15px, center);
       input {
-        color: $black;
+        background-color: $black;
+        color: white;
         font-size: 14px;
         width: 100%;
         outline: none;
@@ -181,7 +170,6 @@ body {
         padding: 1rem;
         border-bottom: 1px solid $l-green;
         &::placeholder {
-          color: $grey;
           text-transform: capitalize;
         }
       }
@@ -205,6 +193,12 @@ body {
         background-color: $green;
       }
     }
+    .loading,
+    .error {
+      color: $green;
+      font-size: 1.5rem;
+      text-transform: uppercase;
+    }
     p {
       font-size: 14px;
       margin-top: 1rem;
@@ -226,8 +220,7 @@ body {
     position: relative;
     display: flex;
     width: 100%;
-    height: 100vh;
-    max-height: 100vh;
+    height: 100%;
     border-radius: 0;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
@@ -236,7 +229,6 @@ body {
     @include breakpoints(small) {
       width: 80%;
       height: 80vh;
-      max-height: 100vh;
       border-radius: 1rem;
       -webkit-border-radius: 1rem;
       -moz-border-radius: 1rem;
@@ -250,7 +242,6 @@ body {
     .navbar {
       position: absolute;
       top: 0;
-      left: 0;
       width: 100%;
       height: 100%;
       z-index: 1000;
@@ -302,6 +293,14 @@ body {
             text-transform: capitalize;
           }
         }
+        p {
+          background-color: $black;
+          color: $green;
+          padding: 1rem;
+          font-size: 16px;
+          text-transform: capitalize;
+          border-bottom: 1px solid $grey;
+        }
       }
       .chats {
         height: 100%;
@@ -342,15 +341,12 @@ body {
     }
     .messages {
       flex: 2;
-      // position: relative;
+      display: flex;
+      flex-direction: column;
       .top {
         @include centering(row, 0, space-between);
-        // position: sticky;
-        // width: 100%;
-        // top: 0;
-        // right: 0;
         padding: 0 1rem;
-        background-color: $black;
+        background-color: $green;
         height: 70px;
         .left {
           color: white;
@@ -375,13 +371,13 @@ body {
         }
       }
       .userMessages {
+        flex: 1;
         overflow-y: scroll;
-        height: 100%;
         &::-webkit-scrollbar {
           display: none;
         }
         background-color: $l-black;
-        height: calc(100% - 140px);
+        height: calc(100% - 150px);
         padding: 1rem;
         .message {
           display: flex;
@@ -450,14 +446,10 @@ body {
         }
       }
       .typing {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        width: 100%;
+        position: relative;
         z-index: 100;
         background-color: $d-black;
-        height: 70px;
-        max-height: 70px;
+        height: 80px;
         padding: 0 1rem;
         @include centering(row, 0, space-between);
         > input {
@@ -468,9 +460,6 @@ body {
           border: none;
           color: white;
           font-size: 16px;
-          &::placeholder {
-            color: $grey;
-          }
           caret-color: $green;
         }
         div {
@@ -490,11 +479,51 @@ body {
         }
       }
     }
+    .noMessages {
+      flex: 2;
+      @include centering(column, 2rem, center);
+      background-color: $l-black;
+      div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        span {
+          text-transform: uppercase;
+          font-size: 3rem;
+          color: #04e263;
+          margin-top: 1rem;
+        }
+        img {
+          border-radius: 50%;
+          -webkit-border-radius: 50%;
+          -moz-border-radius: 50%;
+          -ms-border-radius: 50%;
+          -o-border-radius: 50%;
+        }
+      }
+    }
   }
 }
 
 // end home page
-
-// general ui components
-
-// end general
+// start loading page
+.loadingPage {
+  @include centering(column, 2rem, center);
+  width: 100vw;
+  height: 100vh;
+  background-color: $l-green;
+  img {
+    width: 15rem;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+  }
+  span {
+    font-size: 3rem;
+    color: white;
+  }
+}
+// end loading page

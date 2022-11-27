@@ -44,6 +44,9 @@ const SearchResult = () => {
             photoURL: SearchFriend.photoURL,
           },
           [uniqueIdForChat + ".date"]: serverTimestamp(),
+          [uniqueIdForChat + ".lastMessage"]: {
+            text: "",
+          },
         });
         await updateDoc(doc(db, "userChats", SearchFriend.uid), {
           [uniqueIdForChat + ".userInfo"]: {
@@ -52,6 +55,9 @@ const SearchResult = () => {
             photoURL: user.photoURL,
           },
           [uniqueIdForChat + ".date"]: serverTimestamp(),
+          [uniqueIdForChat + ".lastMessage"]: {
+            text: "",
+          },
         });
       }
       // clear redux friend ( i will update users list in chats component )
@@ -65,10 +71,9 @@ const SearchResult = () => {
       <img src={SearchFriend.photoURL} alt="" />
       <div>
         <span>{SearchFriend.displayName}</span>
-        <span>message from hima</span>
       </div>
     </div>
   );
-}
+};
 
-export default SearchResult
+export default SearchResult;

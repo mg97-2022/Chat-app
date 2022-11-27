@@ -13,11 +13,15 @@ const Search = () => {
   const user = useAppSelector((state) => state.user.user);
 
   const searchUserHandler = useCallback(async () => {
+    setError(false);
     // search for users in database
     try {
       const usersRef = collection(db, "users");
       const q = query(usersRef, where("displayName", "==", enteredValue));
       const querySnapshot = await getDocs(q);
+      if (querySnapshot.empty) {
+        setError(true);
+      }
       querySnapshot.forEach((doc) => {
         const data = doc.data();
         if (data.uid !== user.uid) {
@@ -48,10 +52,14 @@ const Search = () => {
     <div className="search">
       <input
         type="text"
-        placeholder="Find a user"
-        onChange={(e) => setEnteredValue(e.currentTarget.value)}
+        placeholder="enter friend name"
+        onChange={(e) => {
+          setEnteredValue(e.currentTarget.value);
+          setError(false);
+        }}
         value={enteredValue}
       />
+      {error && <p>please enter a valid name</p>}
     </div>
   );
 };

@@ -1,6 +1,6 @@
-import React, { FormEvent, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import img from "../../assets/images/addAvatar.png";
+import img from "../../assets/images/avatar.png";
 import GoogleAuth from "../../components/GoogleAuth";
 
 // firebase
@@ -8,9 +8,10 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, storage, db } from "../../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore";
+import ErrorHandling from "../../components/ErrorHandling";
 
 const SignupPage = () => {
-  const [error, setError] = useState<boolean>();
+  const [error, setError] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState(false);
   const enteredName = useRef<HTMLInputElement>(null);
   const enteredEmail = useRef<HTMLInputElement>(null);
@@ -21,6 +22,7 @@ const SignupPage = () => {
 
   const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
 
     const displayName = enteredName.current!.value;
     const email = enteredEmail.current!.value;
@@ -28,8 +30,6 @@ const SignupPage = () => {
     const img = enteredImg.current!.files[0];
 
     try {
-      setIsLoading(true);
-
       // user sign up
       const user = await createUserWithEmailAndPassword(auth, email, password);
 
@@ -64,18 +64,18 @@ const SignupPage = () => {
           });
         }
       );
-      setIsLoading(false);
     } catch (error: any) {
-      setError(error.message);
+      setError(true);
     }
+    setIsLoading(false);
   };
 
   const googleErrorHandler = (err: boolean) => {
-    setError(err)
-  }
+    setError(err);
+  };
   const googleLoadingHandler = (load: boolean) => {
-    setIsLoading(load)
-  }
+    setIsLoading(load);
+  };
 
   return (
     <div className="formContainer">
@@ -97,9 +97,12 @@ const SignupPage = () => {
             <span>Add an avatar</span>
           </label>
           <button type="submit">Sign up</button>
-          {isLoading && <p>loading</p>}
         </form>
-        <GoogleAuth onError={googleErrorHandler} onLoading={googleLoadingHandler} />
+        <GoogleAuth
+          onError={googleErrorHandler}
+          onLoading={googleLoadingHandler}
+        />
+        <ErrorHandling isLoading={isLoading} error={error} />
         <p>
           You don't have an account? <Link to="/signin">Login</Link>
         </p>
